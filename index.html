@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciclo Alta Fertilidad - Cañada Honda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .animal-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .animal-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .animal-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .animal-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: #212529;
+            margin-top: 3px;
+        }
+
+        .registro-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .registro-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .registro-fecha {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .registro-tipo {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .registro-datos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #6c757d;
+            line-height: 1;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .export-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐄 Sistema de Monitoreo - Ciclo de Alta Fertilidad</h1>
+            <p>Finca Cañada Honda | San Pedro de los Milagros, Antioquia</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(event, 'inicio')">📊 Inicio</button>
+            <button class="tab" onclick="switchTab(event, 'animales')">🐄 Animales</button>
+            <button class="tab" onclick="switchTab(event, 'bcs')">📏 BCS</button>
+            <button class="tab" onclick="switchTab(event, 'metabolico')">🧪 Perfil Metabólico</button>
+            <button class="tab" onclick="switchTab(event, 'produccion')">🥛 Producción</button>
+            <button class="tab" onclick="switchTab(event, 'salud')">🏥 Salud</button>
+            <button class="tab" onclick="switchTab(event, 'reproduccion')">🎯 Reproducción</button>
+            <button class="tab" onclick="switchTab(event, 'reportes')">📑 Reportes</button>
+        </div>
+
+        <div class="content">
+            <!-- TAB INICIO -->
+            <div id="tab-inicio" class="tab-content active">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Dashboard del Proyecto</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-animales">0</div>
+                        <div class="stat-label">Animales en Estudio</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-registros">0</div>
+                        <div class="stat-label">Registros Totales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="promedio-bcs">0.0</div>
+                        <div class="stat-label">BCS Promedio Actual</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="tasa-prenez">0%</div>
+                        <div class="stat-label">Tasa de Preñez (1ª IA)</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>✓ Proyecto Activo:</strong> Evaluación del perfil metabólico y condición corporal desde el período de secado hasta el pico de lactancia.
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Resumen del Proyecto</h3>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                    <p style="margin-bottom: 15px;"><strong>Duración:</strong> 12 meses</p>
+                    <p style="margin-bottom: 15px;"><strong>Tamaño de muestra:</strong> 100 vacas Holstein</p>
+                    <p style="margin-bottom: 15px;"><strong>Período de evaluación por vaca:</strong> Desde -21 días preparto hasta 90 días en leche (DEL)</p>
+                    <p><strong>Variables monitoreadas:</strong> BCS, NEFA, BHBA, Proteína total, Albúmina, Minerales (Ca, P, Mg), Producción lechera, Eventos de salud, Desempeño reproductivo</p>
+                </div>
+            </div>
+
+            <!-- TAB ANIMALES -->
+            <div id="tab-animales" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Registro de Animales</h2>
+                
+                <button class="btn btn-primary" onclick="showModal('modal-animal')">+ Nuevo Animal</button>
+
+                <div class="search-box" style="margin-top: 20px;">
+                    <input type="text" id="search-animal" placeholder="Buscar por número, nombre o chapeta..." onkeyup="filterAnimales()">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div id="lista-animales">
+                    <!-- Los animales se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+
+            <!-- TAB BCS -->
+            <div id="tab-bcs" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Condición Corporal (BCS)</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Seleccionar Animal *</label>
+                        <select id="bcs-animal" required>
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Evaluación *</label>
+                        <input type="date" id="bcs-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Días Relativos al Parto *</label>
+                        <input type="number" id="bcs-dim" placeholder="Ej: -21, 0, 21, 30, 60, 90">
+                    </div>
+                    <div class="form-group">
+                        <label>BCS (Escala 1-5) *</label>
+                        <input type="number" id="bcs-valor" step="0.25" min="1" max="5" placeholder="Ej: 3.0, 3.25" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="bcs-observaciones" placeholder="Notas adicionales sobre la evaluación..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarBCS()">💾 Guardar Registro</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormularioBCS()">🔄 Limpiar</button>
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Registros Recientes</h3>
+                <div id="registros-bcs">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- TAB PERFIL METABÓLICO -->
+            <div id="tab-metabolico" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Perfil Metabólico</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Seleccionar Animal *</label>
+                        <select id="meta-animal" required>
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Muestreo *</label>
+                        <input type="date" id="meta-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Días Relativos al Parto</label>
+                        <input type="number" id="meta-dim" placeholder="-21, 0, 21, 30, 60, 90">
+                    </div>
+                </div>
+
+                <h3 style="margin: 20px 0 15px; color: #495057;">Parámetros Metabólicos</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>NEFA (mmol/L)</label>
+                        <input type="number" id="meta-nefa" step="0.01" placeholder="Ej: 0.45">
+                        <small style="color: #6c757d; margin-top: 5px;">Referencia: <0.6 mmol/L</small>
+                    </div>
+                    <div class="form-group">
+                        <label>BHBA (mmol/L)</label>
+                        <input type="number" id="meta-bhba" step="0.01" placeholder="Ej: 0.8">
+                        <small style="color: #6c757d; margin-top: 5px;">Referencia: <1.2 mmol/L</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Proteína Total (g/dL)</label>
+                        <input type="number" id="meta-proteina" step="0.1" placeholder="Ej: 7.2">
+                    </div>
+                    <div class="form-group">
+                        <label>Albúmina (g/dL)</label>
+                        <input type="number" id="meta-albumina" step="0.1" placeholder="Ej: 3.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Calcio (mg/dL)</label>
+                        <input type="number" id="meta-calcio" step="0.1" placeholder="Ej: 9.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Fósforo (mg/dL)</label>
+                        <input type="number" id="meta-fosforo" step="0.1" placeholder="Ej: 5.2">
+                    </div>
+                    <div class="form-group">
+                        <label>Magnesio (mg/dL)</label>
+                        <input type="number" id="meta-magnesio" step="0.1" placeholder="Ej: 2.3">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="meta-observaciones" placeholder="Notas sobre la muestra o resultados..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarMetabolico()">💾 Guardar Análisis</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormularioMetabolico()">🔄 Limpiar</button>
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Análisis Recientes</h3>
+                <div id="registros-metabolico">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- TAB PRODUCCIÓN -->
+            <div id="tab-produccion" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Producción Lechera</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Seleccionar Animal *</label>
+                        <select id="prod-animal" required>
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Control *</label>
+                        <input type="date" id="prod-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Días en Leche (DEL)</label>
+                        <input type="number" id="prod-del" placeholder="Ej: 30, 60, 90">
+                    </div>
+                    <div class="form-group">
+                        <label>Producción Diaria (Litros) *</label>
+                        <input type="number" id="prod-litros" step="0.1" placeholder="Ej: 32.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Grasa (%)</label>
+                        <input type="number" id="prod-grasa" step="0.01" placeholder="Ej: 3.8">
+                    </div>
+                    <div class="form-group">
+                        <label>Proteína (%)</label>
+                        <input type="number" id="prod-proteina" step="0.01" placeholder="Ej: 3.2">
+                    </div>
+                    <div class="form-group">
+                        <label>Lactosa (%)</label>
+                        <input type="number" id="prod-lactosa" step="0.01" placeholder="Ej: 4.7">
+                    </div>
+                    <div class="form-group">
+                        <label>SCC (células/mL × 1000)</label>
+                        <input type="number" id="prod-scc" placeholder="Ej: 150">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="prod-observaciones" placeholder="Notas sobre la producción o control lechero..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarProduccion()">💾 Guardar Control</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormularioProduccion()">🔄 Limpiar</button>
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Controles Recientes</h3>
+                <div id="registros-produccion">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- TAB SALUD -->
+            <div id="tab-salud" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Eventos de Salud</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Seleccionar Animal *</label>
+                        <select id="salud-animal" required>
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha del Evento *</label>
+                        <input type="date" id="salud-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Evento *</label>
+                        <select id="salud-tipo" required>
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Retención Placentaria">Retención Placentaria</option>
+                            <option value="Metritis">Metritis</option>
+                            <option value="Mastitis Clínica">Mastitis Clínica</option>
+                            <option value="Cetosis Clínica">Cetosis Clínica</option>
+                            <option value="Cetosis Subclínica">Cetosis Subclínica</option>
+                            <option value="Desplazamiento Abomaso">Desplazamiento de Abomaso</option>
+                            <option value="Cojera">Cojera</option>
+                            <option value="Hipocalcemia">Hipocalcemia</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Días Relativos al Parto</label>
+                        <input type="number" id="salud-dim" placeholder="Ej: 5, 14, 28">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Diagnóstico/Descripción *</label>
+                    <textarea id="salud-diagnostico" placeholder="Descripción detallada del evento de salud..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Tratamiento Aplicado</label>
+                    <textarea id="salud-tratamiento" placeholder="Medicamentos, dosis y duración del tratamiento..."></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Estado Actual</label>
+                        <select id="salud-estado">
+                            <option value="En tratamiento">En tratamiento</option>
+                            <option value="Recuperado">Recuperado</option>
+                            <option value="Crónico">Crónico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarSalud()">💾 Guardar Evento</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormularioSalud()">🔄 Limpiar</button>
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Eventos Recientes</h3>
+                <div id="registros-salud">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- TAB REPRODUCCIÓN -->
+            <div id="tab-reproduccion" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Desempeño Reproductivo</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Seleccionar Animal *</label>
+                        <select id="repro-animal" required>
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha del Evento *</label>
+                        <input type="date" id="repro-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Evento *</label>
+                        <select id="repro-tipo" required onchange="toggleReproFields()">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Inseminación">Inseminación Artificial</option>
+                            <option value="Diagnóstico Gestación">Diagnóstico de Gestación</option>
+                            <option value="Pérdida Embrionaria">Pérdida Embrionaria</option>
+                            <option value="Parto">Parto</option>
+                            <option value="Aborto">Aborto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Días en Leche (DEL)</label>
+                        <input type="number" id="repro-del" placeholder="Ej: 60, 80, 100">
+                    </div>
+                </div>
+
+                <!-- Campos específicos para Inseminación -->
+                <div id="fields-inseminacion" style="display: none;">
+                    <h3 style="margin: 20px 0 15px; color: #495057;">Detalles de Inseminación</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Número de Servicio</label>
+                            <input type="number" id="repro-num-servicio" placeholder="1, 2, 3...">
+                        </div>
+                        <div class="form-group">
+                            <label>Protocolo Utilizado</label>
+                            <select id="repro-protocolo">
+                                <option value="">-- Seleccionar --</option>
+                                <option value="Double-Ovsynch">Double-Ovsynch</option>
+                                <option value="Ovsynch">Ovsynch</option>
+                                <option value="Estro Natural">Estro Natural</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Semen</label>
+                            <select id="repro-tipo-semen">
+                                <option value="Convencional">Convencional</option>
+                                <option value="Sexado">Sexado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Toro/Pajilla</label>
+                            <input type="text" id="repro-toro" placeholder="Código del toro">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campos específicos para Diagnóstico -->
+                <div id="fields-diagnostico" style="display: none;">
+                    <h3 style="margin: 20px 0 15px; color: #495057;">Resultado del Diagnóstico</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Resultado *</label>
+                            <select id="repro-resultado">
+                                <option value="">-- Seleccionar --</option>
+                                <option value="Positivo">Preñada</option>
+                                <option value="Negativo">Vacía</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Días de Gestación</label>
+                            <input type="number" id="repro-dias-gestacion" placeholder="Ej: 30, 60">
+                        </div>
+                        <div class="form-group">
+                            <label>Método</label>
+                            <select id="repro-metodo">
+                                <option value="Palpación">Palpación</option>
+                                <option value="Ultrasonido">Ultrasonido</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="repro-observaciones" placeholder="Notas adicionales sobre el evento reproductivo..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarReproduccion()">💾 Guardar Evento</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormularioReproduccion()">🔄 Limpiar</button>
+                </div>
+
+                <h3 style="margin: 30px 0 15px; color: #495057;">Eventos Recientes</h3>
+                <div id="registros-reproduccion">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- TAB REPORTES -->
+            <div id="tab-reportes" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #667eea;">Reportes y Exportación</h2>
+                
+                <div class="export-section">
+                    <h3 style="margin-bottom: 15px; color: #495057;">Exportar Datos</h3>
+                    <p style="margin-bottom: 15px; color: #6c757d;">Descarga todos los datos del proyecto en formato CSV para análisis en Excel o software estadístico.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-success" onclick="exportarDatos('animales')">📊 Exportar Animales</button>
+                        <button class="btn btn-success" onclick="exportarDatos('bcs')">📏 Exportar BCS</button>
+                        <button class="btn btn-success" onclick="exportarDatos('metabolico')">🧪 Exportar Metabólico</button>
+                        <button class="btn btn-success" onclick="exportarDatos('produccion')">🥛 Exportar Producción</button>
+                        <button class="btn btn-success" onclick="exportarDatos('salud')">🏥 Exportar Salud</button>
+                        <button class="btn btn-success" onclick="exportarDatos('reproduccion')">🎯 Exportar Reproducción</button>
+                        <button class="btn btn-primary" onclick="exportarTodosDatos()">📦 Exportar TODO</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3 style="margin-bottom: 15px; color: #495057;">Resumen Estadístico</h3>
+                    <div id="resumen-estadistico">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>N</th>
+                                        <th>Media</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-resumen">
+                                    <tr><td colspan="5" style="text-align: center; color: #6c757d;">No hay datos suficientes</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>💡 Tip:</strong> Los datos exportados incluyen marcas de tiempo y están listos para análisis estadístico con SAS, R o SPSS.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVO ANIMAL -->
+    <div id="modal-animal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Animal</h2>
+                <button class="close-btn" onclick="closeModal('modal-animal')">&times;</button>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Número de Animal *</label>
+                    <input type="text" id="animal-numero" placeholder="Ej: 1234" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre/Identificación</label>
+                    <input type="text" id="animal-nombre" placeholder="Ej: Margarita">
+                </div>
+                <div class="form-group">
+                    <label>Chapeta/Arete</label>
+                    <input type="text" id="animal-chapeta" placeholder="Ej: 456">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" id="animal-nacimiento">
+                </div>
+                <div class="form-group">
+                    <label>Número de Lactancia *</label>
+                    <input type="number" id="animal-lactancia" min="1" placeholder="1, 2, 3..." required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha Último Parto</label>
+                    <input type="date" id="animal-ultimo-parto">
+                </div>
+                <div class="form-group">
+                    <label>Fecha Esperada de Parto</label>
+                    <input type="date" id="animal-fecha-parto">
+                </div>
+                <div class="form-group">
+                    <label>Grupo de Estudio</label>
+                    <select id="animal-grupo">
+                        <option value="1">Grupo 1 (mes 1)</option>
+                        <option value="2">Grupo 2 (mes 2)</option>
+                        <option value="3">Grupo 3 (mes 3)</option>
+                        <option value="4">Grupo 4 (mes 4)</option>
+                        <option value="5">Grupo 5 (mes 5)</option>
+                        <option value="6">Grupo 6 (mes 6)</option>
+                        <option value="7">Grupo 7 (mes 7)</option>
+                        <option value="8">Grupo 8 (mes 8)</option>
+                        <option value="9">Grupo 9 (mes 9)</option>
+                        <option value="10">Grupo 10 (mes 10)</option>
+                        <option value="11">Grupo 11 (mes 11)</option>
+                        <option value="12">Grupo 12 (mes 12)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Observaciones</label>
+                <textarea id="animal-observaciones" placeholder="Notas adicionales sobre el animal..."></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="guardarAnimal()">💾 Guardar Animal</button>
+                <button class="btn btn-secondary" onclick="closeModal('modal-animal')">❌ Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VER ANIMAL -->
+    <div id="modal-ver-animal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="ver-animal-titulo">Detalles del Animal</h2>
+                <button class="close-btn" onclick="closeModal('modal-ver-animal')">&times;</button>
+            </div>
+            <div id="ver-animal-contenido">
+                <!-- El contenido se cargará dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== SISTEMA DE ALMACENAMIENTO =====
+        const DB = {
+            animales: 'animales_fertilidad',
+            bcs: 'registros_bcs',
+            metabolico: 'registros_metabolico',
+            produccion: 'registros_produccion',
+            salud: 'registros_salud',
+            reproduccion: 'registros_reproduccion'
+        };
+
+        // Inicializar localStorage si no existe
+        function initDB() {
+            Object.values(DB).forEach(key => {
+                if (!localStorage.getItem(key)) {
+                    localStorage.setItem(key, JSON.stringify([]));
+                }
+            });
+        }
+
+        // Obtener datos
+        function getData(key) {
+            return JSON.parse(localStorage.getItem(key) || '[]');
+        }
+
+        // Guardar datos
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // ===== FUNCIONES DE NAVEGACIÓN =====
+        function switchTab(event, tabName) {
+            // Ocultar todos los tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar tab seleccionado
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // Cargar datos del tab
+            if (tabName === 'animales') cargarAnimales();
+            if (tabName === 'bcs') cargarRegistrosBCS();
+            if (tabName === 'metabolico') cargarRegistrosMetabolico();
+            if (tabName === 'produccion') cargarRegistrosProduccion();
+            if (tabName === 'salud') cargarRegistrosSalud();
+            if (tabName === 'reproduccion') cargarRegistrosReproduccion();
+            if (tabName === 'reportes') generarResumenEstadistico();
+        }
+
+        // ===== FUNCIONES DE MODAL =====
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // ===== FUNCIONES DE ANIMALES =====
+        function guardarAnimal() {
+            const animal = {
+                id: Date.now(),
+                numero: document.getElementById('animal-numero').value,
+                nombre: document.getElementById('animal-nombre').value,
+                chapeta: document.getElementById('animal-chapeta').value,
+                fechaNacimiento: document.getElementById('animal-nacimiento').value,
+                lactancia: parseInt(document.getElementById('animal-lactancia').value),
+                ultimoParto: document.getElementById('animal-ultimo-parto').value,
+                fechaEsperadaParto: document.getElementById('animal-fecha-parto').value,
+                grupo: document.getElementById('animal-grupo').value,
+                observaciones: document.getElementById('animal-observaciones').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!animal.numero || !animal.lactancia) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            const animales = getData(DB.animales);
+            animales.push(animal);
+            saveData(DB.animales, animales);
+
+            closeModal('modal-animal');
+            limpiarFormularioAnimal();
+            cargarAnimales();
+            actualizarSelectoresAnimales();
+            actualizarDashboard();
+            
+            alert('✓ Animal registrado exitosamente');
+        }
+
+        function limpiarFormularioAnimal() {
+            document.getElementById('animal-numero').value = '';
+            document.getElementById('animal-nombre').value = '';
+            document.getElementById('animal-chapeta').value = '';
+            document.getElementById('animal-nacimiento').value = '';
+            document.getElementById('animal-lactancia').value = '';
+            document.getElementById('animal-ultimo-parto').value = '';
+            document.getElementById('animal-fecha-parto').value = '';
+            document.getElementById('animal-grupo').value = '1';
+            document.getElementById('animal-observaciones').value = '';
+        }
+
+        function cargarAnimales() {
+            const animales = getData(DB.animales);
+            const container = document.getElementById('lista-animales');
+            
+            if (animales.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay animales registrados. Haz clic en "+ Nuevo Animal" para comenzar.</p>';
+                return;
+            }
+
+            container.innerHTML = animales.map(animal => `
+                <div class="animal-card" onclick="verDetalleAnimal(${animal.id})">
+                    <h3>🐄 ${animal.numero} ${animal.nombre ? '- ' + animal.nombre : ''}</h3>
+                    <div class="animal-info">
+                        <div class="info-item">
+                            <span class="info-label">Chapeta</span>
+                            <span class="info-value">${animal.chapeta || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Lactancia</span>
+                            <span class="info-value">#${animal.lactancia}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Grupo</span>
+                            <span class="info-value">Grupo ${animal.grupo}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fecha Parto Esperado</span>
+                            <span class="info-value">${animal.fechaEsperadaParto ? formatDate(animal.fechaEsperadaParto) : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterAnimales() {
+            const searchTerm = document.getElementById('search-animal').value.toLowerCase();
+            const animales = getData(DB.animales);
+            const filtered = animales.filter(a => 
+                a.numero.toLowerCase().includes(searchTerm) ||
+                (a.nombre && a.nombre.toLowerCase().includes(searchTerm)) ||
+                (a.chapeta && a.chapeta.toLowerCase().includes(searchTerm))
+            );
+
+            const container = document.getElementById('lista-animales');
+            container.innerHTML = filtered.map(animal => `
+                <div class="animal-card" onclick="verDetalleAnimal(${animal.id})">
+                    <h3>🐄 ${animal.numero} ${animal.nombre ? '- ' + animal.nombre : ''}</h3>
+                    <div class="animal-info">
+                        <div class="info-item">
+                            <span class="info-label">Chapeta</span>
+                            <span class="info-value">${animal.chapeta || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Lactancia</span>
+                            <span class="info-value">#${animal.lactancia}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Grupo</span>
+                            <span class="info-value">Grupo ${animal.grupo}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function verDetalleAnimal(animalId) {
+            const animal = getData(DB.animales).find(a => a.id === animalId);
+            if (!animal) return;
+
+            // Obtener todos los registros del animal
+            const registrosBCS = getData(DB.bcs).filter(r => r.animalId === animalId);
+            const registrosMetabolico = getData(DB.metabolico).filter(r => r.animalId === animalId);
+            const registrosProduccion = getData(DB.produccion).filter(r => r.animalId === animalId);
+            const registrosSalud = getData(DB.salud).filter(r => r.animalId === animalId);
+            const registrosReproduccion = getData(DB.reproduccion).filter(r => r.animalId === animalId);
+
+            document.getElementById('ver-animal-titulo').textContent = `${animal.numero} ${animal.nombre ? '- ' + animal.nombre : ''}`;
+            
+            const contenido = `
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 15px; color: #495057;">Información General</h3>
+                    <div class="animal-info">
+                        <div class="info-item">
+                            <span class="info-label">Número</span>
+                            <span class="info-value">${animal.numero}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nombre</span>
+                            <span class="info-value">${animal.nombre || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Chapeta</span>
+                            <span class="info-value">${animal.chapeta || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Lactancia</span>
+                            <span class="info-value">#${animal.lactancia}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Grupo</span>
+                            <span class="info-value">Grupo ${animal.grupo}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fecha Nacimiento</span>
+                            <span class="info-value">${animal.fechaNacimiento ? formatDate(animal.fechaNacimiento) : 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Último Parto</span>
+                            <span class="info-value">${animal.ultimoParto ? formatDate(animal.ultimoParto) : 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Parto Esperado</span>
+                            <span class="info-value">${animal.fechaEsperadaParto ? formatDate(animal.fechaEsperadaParto) : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="stat-value">${registrosBCS.length}</div>
+                        <div class="stat-label">Registros BCS</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="stat-value">${registrosMetabolico.length}</div>
+                        <div class="stat-label">Análisis Metabólicos</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="stat-value">${registrosProduccion.length}</div>
+                        <div class="stat-label">Controles Producción</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="stat-value">${registrosSalud.length}</div>
+                        <div class="stat-label">Eventos Salud</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-danger" onclick="eliminarAnimal(${animal.id})">🗑️ Eliminar Animal</button>
+                </div>
+            `;
+
+            document.getElementById('ver-animal-contenido').innerHTML = contenido;
+            showModal('modal-ver-animal');
+        }
+
+        function eliminarAnimal(animalId) {
+            if (!confirm('¿Está seguro de eliminar este animal? Esta acción eliminará TODOS los registros asociados y no se puede deshacer.')) {
+                return;
+            }
+
+            // Eliminar animal
+            let animales = getData(DB.animales);
+            animales = animales.filter(a => a.id !== animalId);
+            saveData(DB.animales, animales);
+
+            // Eliminar registros asociados
+            ['bcs', 'metabolico', 'produccion', 'salud', 'reproduccion'].forEach(tipo => {
+                let registros = getData(DB[tipo]);
+                registros = registros.filter(r => r.animalId !== animalId);
+                saveData(DB[tipo], registros);
+            });
+
+            closeModal('modal-ver-animal');
+            cargarAnimales();
+            actualizarSelectoresAnimales();
+            actualizarDashboard();
+            
+            alert('✓ Animal y todos sus registros eliminados');
+        }
+
+        // ===== FUNCIONES BCS =====
+        function guardarBCS() {
+            const registro = {
+                id: Date.now(),
+                animalId: parseInt(document.getElementById('bcs-animal').value),
+                fecha: document.getElementById('bcs-fecha').value,
+                dim: parseInt(document.getElementById('bcs-dim').value) || null,
+                valor: parseFloat(document.getElementById('bcs-valor').value),
+                observaciones: document.getElementById('bcs-observaciones').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!registro.animalId || !registro.fecha || !registro.valor) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            if (registro.valor < 1 || registro.valor > 5) {
+                alert('El BCS debe estar entre 1 y 5');
+                return;
+            }
+
+            const registros = getData(DB.bcs);
+            registros.push(registro);
+            saveData(DB.bcs, registros);
+
+            limpiarFormularioBCS();
+            cargarRegistrosBCS();
+            actualizarDashboard();
+            
+            alert('✓ Registro BCS guardado exitosamente');
+        }
+
+        function limpiarFormularioBCS() {
+            document.getElementById('bcs-animal').value = '';
+            document.getElementById('bcs-fecha').value = '';
+            document.getElementById('bcs-dim').value = '';
+            document.getElementById('bcs-valor').value = '';
+            document.getElementById('bcs-observaciones').value = '';
+        }
+
+        function cargarRegistrosBCS() {
+            const registros = getData(DB.bcs).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            const animales = getData(DB.animales);
+            const container = document.getElementById('registros-bcs');
+
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay registros de BCS.</p>';
+                return;
+            }
+
+            container.innerHTML = registros.slice(0, 20).map(registro => {
+                const animal = animales.find(a => a.id === registro.animalId);
+                return `
+                    <div class="registro-item">
+                        <div class="registro-header">
+                            <span class="registro-fecha">${formatDate(registro.fecha)}</span>
+                            <span class="registro-tipo">BCS: ${registro.valor}</span>
+                        </div>
+                        <div class="registro-datos">
+                            <div><strong>Animal:</strong> ${animal ? animal.numero : 'N/A'}</div>
+                            <div><strong>DIM:</strong> ${registro.dim !== null ? registro.dim : 'N/A'}</div>
+                            ${registro.observaciones ? `<div style="grid-column: 1/-1;"><strong>Obs:</strong> ${registro.observaciones}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== FUNCIONES PERFIL METABÓLICO =====
+        function guardarMetabolico() {
+            const registro = {
+                id: Date.now(),
+                animalId: parseInt(document.getElementById('meta-animal').value),
+                fecha: document.getElementById('meta-fecha').value,
+                dim: parseInt(document.getElementById('meta-dim').value) || null,
+                nefa: parseFloat(document.getElementById('meta-nefa').value) || null,
+                bhba: parseFloat(document.getElementById('meta-bhba').value) || null,
+                proteina: parseFloat(document.getElementById('meta-proteina').value) || null,
+                albumina: parseFloat(document.getElementById('meta-albumina').value) || null,
+                calcio: parseFloat(document.getElementById('meta-calcio').value) || null,
+                fosforo: parseFloat(document.getElementById('meta-fosforo').value) || null,
+                magnesio: parseFloat(document.getElementById('meta-magnesio').value) || null,
+                observaciones: document.getElementById('meta-observaciones').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!registro.animalId || !registro.fecha) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            const registros = getData(DB.metabolico);
+            registros.push(registro);
+            saveData(DB.metabolico, registros);
+
+            limpiarFormularioMetabolico();
+            cargarRegistrosMetabolico();
+            actualizarDashboard();
+            
+            alert('✓ Análisis metabólico guardado exitosamente');
+        }
+
+        function limpiarFormularioMetabolico() {
+            document.getElementById('meta-animal').value = '';
+            document.getElementById('meta-fecha').value = '';
+            document.getElementById('meta-dim').value = '';
+            document.getElementById('meta-nefa').value = '';
+            document.getElementById('meta-bhba').value = '';
+            document.getElementById('meta-proteina').value = '';
+            document.getElementById('meta-albumina').value = '';
+            document.getElementById('meta-calcio').value = '';
+            document.getElementById('meta-fosforo').value = '';
+            document.getElementById('meta-magnesio').value = '';
+            document.getElementById('meta-observaciones').value = '';
+        }
+
+        function cargarRegistrosMetabolico() {
+            const registros = getData(DB.metabolico).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            const animales = getData(DB.animales);
+            const container = document.getElementById('registros-metabolico');
+
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay análisis metabólicos registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = registros.slice(0, 20).map(registro => {
+                const animal = animales.find(a => a.id === registro.animalId);
+                return `
+                    <div class="registro-item">
+                        <div class="registro-header">
+                            <span class="registro-fecha">${formatDate(registro.fecha)}</span>
+                            <span class="registro-tipo">Análisis Metabólico</span>
+                        </div>
+                        <div class="registro-datos">
+                            <div><strong>Animal:</strong> ${animal ? animal.numero : 'N/A'}</div>
+                            <div><strong>DIM:</strong> ${registro.dim !== null ? registro.dim : 'N/A'}</div>
+                            ${registro.nefa !== null ? `<div><strong>NEFA:</strong> ${registro.nefa} mmol/L</div>` : ''}
+                            ${registro.bhba !== null ? `<div><strong>BHBA:</strong> ${registro.bhba} mmol/L</div>` : ''}
+                            ${registro.proteina !== null ? `<div><strong>Proteína:</strong> ${registro.proteina} g/dL</div>` : ''}
+                            ${registro.albumina !== null ? `<div><strong>Albúmina:</strong> ${registro.albumina} g/dL</div>` : ''}
+                            ${registro.calcio !== null ? `<div><strong>Ca:</strong> ${registro.calcio} mg/dL</div>` : ''}
+                            ${registro.fosforo !== null ? `<div><strong>P:</strong> ${registro.fosforo} mg/dL</div>` : ''}
+                            ${registro.magnesio !== null ? `<div><strong>Mg:</strong> ${registro.magnesio} mg/dL</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== FUNCIONES PRODUCCIÓN =====
+        function guardarProduccion() {
+            const registro = {
+                id: Date.now(),
+                animalId: parseInt(document.getElementById('prod-animal').value),
+                fecha: document.getElementById('prod-fecha').value,
+                del: parseInt(document.getElementById('prod-del').value) || null,
+                litros: parseFloat(document.getElementById('prod-litros').value),
+                grasa: parseFloat(document.getElementById('prod-grasa').value) || null,
+                proteina: parseFloat(document.getElementById('prod-proteina').value) || null,
+                lactosa: parseFloat(document.getElementById('prod-lactosa').value) || null,
+                scc: parseInt(document.getElementById('prod-scc').value) || null,
+                observaciones: document.getElementById('prod-observaciones').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!registro.animalId || !registro.fecha || !registro.litros) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            const registros = getData(DB.produccion);
+            registros.push(registro);
+            saveData(DB.produccion, registros);
+
+            limpiarFormularioProduccion();
+            cargarRegistrosProduccion();
+            actualizarDashboard();
+            
+            alert('✓ Control de producción guardado exitosamente');
+        }
+
+        function limpiarFormularioProduccion() {
+            document.getElementById('prod-animal').value = '';
+            document.getElementById('prod-fecha').value = '';
+            document.getElementById('prod-del').value = '';
+            document.getElementById('prod-litros').value = '';
+            document.getElementById('prod-grasa').value = '';
+            document.getElementById('prod-proteina').value = '';
+            document.getElementById('prod-lactosa').value = '';
+            document.getElementById('prod-scc').value = '';
+            document.getElementById('prod-observaciones').value = '';
+        }
+
+        function cargarRegistrosProduccion() {
+            const registros = getData(DB.produccion).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            const animales = getData(DB.animales);
+            const container = document.getElementById('registros-produccion');
+
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay controles de producción registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = registros.slice(0, 20).map(registro => {
+                const animal = animales.find(a => a.id === registro.animalId);
+                return `
+                    <div class="registro-item">
+                        <div class="registro-header">
+                            <span class="registro-fecha">${formatDate(registro.fecha)}</span>
+                            <span class="registro-tipo">${registro.litros} L/día</span>
+                        </div>
+                        <div class="registro-datos">
+                            <div><strong>Animal:</strong> ${animal ? animal.numero : 'N/A'}</div>
+                            <div><strong>DEL:</strong> ${registro.del !== null ? registro.del : 'N/A'}</div>
+                            ${registro.grasa !== null ? `<div><strong>Grasa:</strong> ${registro.grasa}%</div>` : ''}
+                            ${registro.proteina !== null ? `<div><strong>Proteína:</strong> ${registro.proteina}%</div>` : ''}
+                            ${registro.lactosa !== null ? `<div><strong>Lactosa:</strong> ${registro.lactosa}%</div>` : ''}
+                            ${registro.scc !== null ? `<div><strong>SCC:</strong> ${registro.scc}k</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== FUNCIONES SALUD =====
+        function guardarSalud() {
+            const registro = {
+                id: Date.now(),
+                animalId: parseInt(document.getElementById('salud-animal').value),
+                fecha: document.getElementById('salud-fecha').value,
+                tipo: document.getElementById('salud-tipo').value,
+                dim: parseInt(document.getElementById('salud-dim').value) || null,
+                diagnostico: document.getElementById('salud-diagnostico').value,
+                tratamiento: document.getElementById('salud-tratamiento').value,
+                estado: document.getElementById('salud-estado').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!registro.animalId || !registro.fecha || !registro.tipo || !registro.diagnostico) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            const registros = getData(DB.salud);
+            registros.push(registro);
+            saveData(DB.salud, registros);
+
+            limpiarFormularioSalud();
+            cargarRegistrosSalud();
+            actualizarDashboard();
+            
+            alert('✓ Evento de salud registrado exitosamente');
+        }
+
+        function limpiarFormularioSalud() {
+            document.getElementById('salud-animal').value = '';
+            document.getElementById('salud-fecha').value = '';
+            document.getElementById('salud-tipo').value = '';
+            document.getElementById('salud-dim').value = '';
+            document.getElementById('salud-diagnostico').value = '';
+            document.getElementById('salud-tratamiento').value = '';
+            document.getElementById('salud-estado').value = 'En tratamiento';
+        }
+
+        function cargarRegistrosSalud() {
+            const registros = getData(DB.salud).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            const animales = getData(DB.animales);
+            const container = document.getElementById('registros-salud');
+
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay eventos de salud registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = registros.slice(0, 20).map(registro => {
+                const animal = animales.find(a => a.id === registro.animalId);
+                return `
+                    <div class="registro-item" style="border-left-color: #dc3545;">
+                        <div class="registro-header">
+                            <span class="registro-fecha">${formatDate(registro.fecha)}</span>
+                            <span class="registro-tipo" style="background: #dc3545;">${registro.tipo}</span>
+                        </div>
+                        <div class="registro-datos">
+                            <div><strong>Animal:</strong> ${animal ? animal.numero : 'N/A'}</div>
+                            <div><strong>DIM:</strong> ${registro.dim !== null ? registro.dim : 'N/A'}</div>
+                            <div><strong>Estado:</strong> ${registro.estado}</div>
+                            <div style="grid-column: 1/-1;"><strong>Diagnóstico:</strong> ${registro.diagnostico}</div>
+                            ${registro.tratamiento ? `<div style="grid-column: 1/-1;"><strong>Tratamiento:</strong> ${registro.tratamiento}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== FUNCIONES REPRODUCCIÓN =====
+        function toggleReproFields() {
+            const tipo = document.getElementById('repro-tipo').value;
+            document.getElementById('fields-inseminacion').style.display = tipo === 'Inseminación' ? 'block' : 'none';
+            document.getElementById('fields-diagnostico').style.display = tipo === 'Diagnóstico Gestación' ? 'block' : 'none';
+        }
+
+        function guardarReproduccion() {
+            const tipo = document.getElementById('repro-tipo').value;
+            const registro = {
+                id: Date.now(),
+                animalId: parseInt(document.getElementById('repro-animal').value),
+                fecha: document.getElementById('repro-fecha').value,
+                tipo: tipo,
+                del: parseInt(document.getElementById('repro-del').value) || null,
+                observaciones: document.getElementById('repro-observaciones').value,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            if (!registro.animalId || !registro.fecha || !registro.tipo) {
+                alert('Por favor complete los campos obligatorios (*)');
+                return;
+            }
+
+            // Campos específicos según tipo
+            if (tipo === 'Inseminación') {
+                registro.numServicio = parseInt(document.getElementById('repro-num-servicio').value) || null;
+                registro.protocolo = document.getElementById('repro-protocolo').value;
+                registro.tipoSemen = document.getElementById('repro-tipo-semen').value;
+                registro.toro = document.getElementById('repro-toro').value;
+            } else if (tipo === 'Diagnóstico Gestación') {
+                registro.resultado = document.getElementById('repro-resultado').value;
+                registro.diasGestacion = parseInt(document.getElementById('repro-dias-gestacion').value) || null;
+                registro.metodo = document.getElementById('repro-metodo').value;
+            }
+
+            const registros = getData(DB.reproduccion);
+            registros.push(registro);
+            saveData(DB.reproduccion, registros);
+
+            limpiarFormularioReproduccion();
+            cargarRegistrosReproduccion();
+            actualizarDashboard();
+            
+            alert('✓ Evento reproductivo registrado exitosamente');
+        }
+
+        function limpiarFormularioReproduccion() {
+            document.getElementById('repro-animal').value = '';
+            document.getElementById('repro-fecha').value = '';
+            document.getElementById('repro-tipo').value = '';
+            document.getElementById('repro-del').value = '';
+            document.getElementById('repro-num-servicio').value = '';
+            document.getElementById('repro-protocolo').value = '';
+            document.getElementById('repro-tipo-semen').value = 'Convencional';
+            document.getElementById('repro-toro').value = '';
+            document.getElementById('repro-resultado').value = '';
+            document.getElementById('repro-dias-gestacion').value = '';
+            document.getElementById('repro-metodo').value = 'Palpación';
+            document.getElementById('repro-observaciones').value = '';
+            toggleReproFields();
+        }
+
+        function cargarRegistrosReproduccion() {
+            const registros = getData(DB.reproduccion).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            const animales = getData(DB.animales);
+            const container = document.getElementById('registros-reproduccion');
+
+            if (registros.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No hay eventos reproductivos registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = registros.slice(0, 20).map(registro => {
+                const animal = animales.find(a => a.id === registro.animalId);
+                let detalles = '';
+                
+                if (registro.tipo === 'Inseminación') {
+                    detalles = `
+                        <div><strong>Servicio #:</strong> ${registro.numServicio || 'N/A'}</div>
+                        <div><strong>Protocolo:</strong> ${registro.protocolo || 'N/A'}</div>
+                        <div><strong>Tipo Semen:</strong> ${registro.tipoSemen || 'N/A'}</div>
+                        <div><strong>Toro:</strong> ${registro.toro || 'N/A'}</div>
+                    `;
+                } else if (registro.tipo === 'Diagnóstico Gestación') {
+                    detalles = `
+                        <div><strong>Resultado:</strong> ${registro.resultado || 'N/A'}</div>
+                        <div><strong>Días Gestación:</strong> ${registro.diasGestacion || 'N/A'}</div>
+                        <div><strong>Método:</strong> ${registro.metodo || 'N/A'}</div>
+                    `;
+                }
+
+                return `
+                    <div class="registro-item" style="border-left-color: #28a745;">
+                        <div class="registro-header">
+                            <span class="registro-fecha">${formatDate(registro.fecha)}</span>
+                            <span class="registro-tipo" style="background: #28a745;">${registro.tipo}</span>
+                        </div>
+                        <div class="registro-datos">
+                            <div><strong>Animal:</strong> ${animal ? animal.numero : 'N/A'}</div>
+                            <div><strong>DEL:</strong> ${registro.del !== null ? registro.del : 'N/A'}</div>
+                            ${detalles}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== FUNCIONES DE EXPORTACIÓN =====
+        function exportarDatos(tipo) {
+            const data = getData(DB[tipo]);
+            if (data.length === 0) {
+                alert('No hay datos para exportar');
+                return;
+            }
+
+            let csv = '';
+            let filename = '';
+            const animales = getData(DB.animales);
+
+            switch(tipo) {
+                case 'animales':
+                    csv = 'Numero,Nombre,Chapeta,Fecha Nacimiento,Lactancia,Ultimo Parto,Fecha Esperada Parto,Grupo,Observaciones\n';
+                    data.forEach(r => {
+                        csv += `${r.numero},"${r.nombre || ''}","${r.chapeta || ''}",${r.fechaNacimiento || ''},${r.lactancia},${r.ultimoParto || ''},${r.fechaEsperadaParto || ''},${r.grupo},"${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'animales.csv';
+                    break;
+
+                case 'bcs':
+                    csv = 'Animal Numero,Fecha,DIM,BCS,Observaciones\n';
+                    data.forEach(r => {
+                        const animal = animales.find(a => a.id === r.animalId);
+                        csv += `${animal ? animal.numero : 'N/A'},${r.fecha},${r.dim || ''},${r.valor},"${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'bcs.csv';
+                    break;
+
+                case 'metabolico':
+                    csv = 'Animal Numero,Fecha,DIM,NEFA,BHBA,Proteina,Albumina,Calcio,Fosforo,Magnesio,Observaciones\n';
+                    data.forEach(r => {
+                        const animal = animales.find(a => a.id === r.animalId);
+                        csv += `${animal ? animal.numero : 'N/A'},${r.fecha},${r.dim || ''},${r.nefa || ''},${r.bhba || ''},${r.proteina || ''},${r.albumina || ''},${r.calcio || ''},${r.fosforo || ''},${r.magnesio || ''},"${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'metabolico.csv';
+                    break;
+
+                case 'produccion':
+                    csv = 'Animal Numero,Fecha,DEL,Litros,Grasa%,Proteina%,Lactosa%,SCC,Observaciones\n';
+                    data.forEach(r => {
+                        const animal = animales.find(a => a.id === r.animalId);
+                        csv += `${animal ? animal.numero : 'N/A'},${r.fecha},${r.del || ''},${r.litros},${r.grasa || ''},${r.proteina || ''},${r.lactosa || ''},${r.scc || ''},"${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'produccion.csv';
+                    break;
+
+                case 'salud':
+                    csv = 'Animal Numero,Fecha,Tipo,DIM,Diagnostico,Tratamiento,Estado,Observaciones\n';
+                    data.forEach(r => {
+                        const animal = animales.find(a => a.id === r.animalId);
+                        csv += `${animal ? animal.numero : 'N/A'},${r.fecha},"${r.tipo}",${r.dim || ''},"${r.diagnostico}","${r.tratamiento || ''}","${r.estado}","${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'salud.csv';
+                    break;
+
+                case 'reproduccion':
+                    csv = 'Animal Numero,Fecha,Tipo,DEL,Num Servicio,Protocolo,Tipo Semen,Toro,Resultado,Dias Gestacion,Metodo,Observaciones\n';
+                    data.forEach(r => {
+                        const animal = animales.find(a => a.id === r.animalId);
+                        csv += `${animal ? animal.numero : 'N/A'},${r.fecha},"${r.tipo}",${r.del || ''},${r.numServicio || ''},"${r.protocolo || ''}","${r.tipoSemen || ''}","${r.toro || ''}","${r.resultado || ''}",${r.diasGestacion || ''},"${r.metodo || ''}","${r.observaciones || ''}"\n`;
+                    });
+                    filename = 'reproduccion.csv';
+                    break;
+            }
+
+            descargarCSV(csv, filename);
+        }
+
+        function exportarTodosDatos() {
+            ['animales', 'bcs', 'metabolico', 'produccion', 'salud', 'reproduccion'].forEach((tipo, index) => {
+                setTimeout(() => exportarDatos(tipo), 300 * index);
+            });
+        }
+
+        function descargarCSV(contenido, filename) {
+            const blob = new Blob([contenido], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // ===== FUNCIONES DE UTILIDAD =====
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function actualizarSelectoresAnimales() {
+            const animales = getData(DB.animales);
+            const selects = ['bcs-animal', 'meta-animal', 'prod-animal', 'salud-animal', 'repro-animal'];
+            
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">-- Seleccionar --</option>' + 
+                    animales.map(a => `<option value="${a.id}">${a.numero} ${a.nombre ? '- ' + a.nombre : ''}</option>`).join('');
+            });
+        }
+
+        function actualizarDashboard() {
+            const animales = getData(DB.animales);
+            const registrosBCS = getData(DB.bcs);
+            const registrosMetabolico = getData(DB.metabolico);
+            const registrosProduccion = getData(DB.produccion);
+            const registrosSalud = getData(DB.salud);
+            const registrosReproduccion = getData(DB.reproduccion);
+
+            // Total animales
+            document.getElementById('total-animales').textContent = animales.length;
+
+            // Total registros
+            const totalRegistros = registrosBCS.length + registrosMetabolico.length + 
+                                  registrosProduccion.length + registrosSalud.length + 
+                                  registrosReproduccion.length;
+            document.getElementById('total-registros').textContent = totalRegistros;
+
+            // BCS Promedio
+            if (registrosBCS.length > 0) {
+                const sumaBCS = registrosBCS.reduce((sum, r) => sum + r.valor, 0);
+                const promedioBCS = (sumaBCS / registrosBCS.length).toFixed(2);
+                document.getElementById('promedio-bcs').textContent = promedioBCS;
+            }
+
+            // Tasa de preñez a 1ª IA
+            const inseminaciones = registrosReproduccion.filter(r => r.tipo === 'Inseminación' && r.numServicio === 1);
+            const diagnosticos = registrosReproduccion.filter(r => r.tipo === 'Diagnóstico Gestación' && r.resultado === 'Positivo');
+            
+            if (inseminaciones.length > 0) {
+                const tasaPrenez = ((diagnosticos.length / inseminaciones.length) * 100).toFixed(0);
+                document.getElementById('tasa-prenez').textContent = tasaPrenez + '%';
+            }
+        }
+
+        function generarResumenEstadistico() {
+            const registrosBCS = getData(DB.bcs);
+            const registrosMetabolico = getData(DB.metabolico);
+            const registrosProduccion = getData(DB.produccion);
+
+            let html = '';
+
+            // Estadísticas BCS
+            if (registrosBCS.length > 0) {
+                const valores = registrosBCS.map(r => r.valor);
+                html += generarFilaEstadistica('BCS', valores);
+            }
+
+            // Estadísticas NEFA
+            const nefaValues = registrosMetabolico.filter(r => r.nefa !== null).map(r => r.nefa);
+            if (nefaValues.length > 0) {
+                html += generarFilaEstadistica('NEFA (mmol/L)', nefaValues);
+            }
+
+            // Estadísticas BHBA
+            const bhbaValues = registrosMetabolico.filter(r => r.bhba !== null).map(r => r.bhba);
+            if (bhbaValues.length > 0) {
+                html += generarFilaEstadistica('BHBA (mmol/L)', bhbaValues);
+            }
+
+            // Estadísticas Producción
+            if (registrosProduccion.length > 0) {
+                const litros = registrosProduccion.map(r => r.litros);
+                html += generarFilaEstadistica('Producción (L/día)', litros);
+            }
+
+            if (html) {
+                document.getElementById('tabla-resumen').innerHTML = html;
+            }
+        }
+
+        function generarFilaEstadistica(variable, valores) {
+            const n = valores.length;
+            const media = (valores.reduce((a, b) => a + b, 0) / n).toFixed(2);
+            const min = Math.min(...valores).toFixed(2);
+            const max = Math.max(...valores).toFixed(2);
+
+            return `
+                <tr>
+                    <td>${variable}</td>
+                    <td>${n}</td>
+                    <td>${media}</td>
+                    <td>${min}</td>
+                    <td>${max}</td>
+                </tr>
+            `;
+        }
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initDB();
+            actualizarSelectoresAnimales();
+            actualizarDashboard();
+            cargarAnimales();
+
+            // Establecer fecha de hoy por defecto
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bcs-fecha').value = today;
+            document.getElementById('meta-fecha').value = today;
+            document.getElementById('prod-fecha').value = today;
+            document.getElementById('salud-fecha').value = today;
+            document.getElementById('repro-fecha').value = today;
+        });
+
+        // Cerrar modales al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
