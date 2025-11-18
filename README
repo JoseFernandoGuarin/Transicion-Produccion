@@ -1,0 +1,75 @@
+🐄 Sistema de Monitoreo - Ciclo de Alta Fertilidad
+
+📊 Inicio
+🐄 Animales
+📏 BCS
+🧪 Perfil Metabólico
+🥛 Producción
+🏥 Salud
+🎯 Reproducción
+📑 Reportes
+
+Características principales de la aplicación:
+📱 Funciona en móviles y computadores
+
+Diseño responsive que se adapta a cualquier pantalla
+No requiere instalación
+Funciona 100% offline (guarda datos en el navegador)
+
+🐄 Gestión de Animales
+
+Registro completo de cada vaca
+Número, nombre, chapeta, lactancia
+Fechas de parto y grupo de estudio
+Búsqueda rápida
+
+📊 Módulos de registro según el proyecto:
+
+BCS (Condición Corporal)
+
+Evaluación en puntos críticos (-21, 0, 21, 30, 60, 90 DIM)
+Escala 1-5 con intervalos de 0.25
+
+
+Perfil Metabólico
+
+NEFA, BHBA, Proteína total, Albúmina
+Calcio, Fósforo, Magnesio
+Referencias automáticas
+
+
+Producción Lechera
+
+Litros diarios, grasa, proteína, lactosa
+Conteo de células somáticas (SCC)
+Control por DEL
+
+
+Salud
+
+Eventos: metritis, mastitis, cetosis, etc.
+Diagnóstico y tratamiento
+Seguimiento de estado
+
+
+Reproducción
+
+Inseminaciones (protocolo, toro, servicio)
+Diagnósticos de gestación
+Pérdidas embrionarias
+
+
+
+📈 Reportes y Exportación
+
+Exporta a CSV para análisis en Excel/SAS/R
+Estadísticas automáticas
+Dashboard con indicadores clave
+
+💾 Almacenamiento
+
+Todos los datos se guardan automáticamente en el navegador
+No necesita internet después de abrir
+Backup exportando los datos regularmente
+
+Para usar la app, simplemente abre el archivo HTML en cualquier navegador (Chrome, Firefox, Safari, etc.) desde tu celular o computador.
